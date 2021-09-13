@@ -14,7 +14,7 @@
 <body>
     <div class="container" ng-controller="itemsController">
         <div>
-            <table class="table">
+            <table class="table" ng-show="IsVisible">
                 <thead>
                     <tr>
                         <th>ID</th>
