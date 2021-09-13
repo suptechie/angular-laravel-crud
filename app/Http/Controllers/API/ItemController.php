@@ -4,7 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facdes\Validator;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 use App\Models\Item;
@@ -57,11 +57,10 @@ class ItemController extends Controller
             $item->price = $request->input('price');
             $item->save();
 
-            return reponse() ->json([
+            return response()->json([
                 'error' => false,
-                'message' => 'Item added successfully',
-                'item' => $item,
-            ],200);
+                'item'  => $item,
+            ], 200);
         }
     }
 
@@ -76,17 +75,17 @@ class ItemController extends Controller
         $item = Item::find($id);
 
         if(is_null($item)){
-            return reponse() ->json([
+            return reponse()->json([
                 'error' => false,
                 'message' => 'Item with given id $id not found',
                 'item' => $item,
             ],404); 
         }
 
-        return reponse()->json([
+        return response()->json([
             'error' => false,
-            'item' => $item,
-        ]);
+            'item'  => $item,
+        ], 200);
     }
 
     /**
@@ -123,11 +122,10 @@ class ItemController extends Controller
             $item->price = $request->input('price');
             $item->save();
 
-            return reponse() ->json([
+            return response()->json([
                 'error' => false,
-                'message' => 'Item updated successfully',
-                'item' => $item,
-            ],200);
+                'item'  => $item,
+            ], 200);
         }
     }
 
@@ -142,7 +140,7 @@ class ItemController extends Controller
         $item = Item::find($id);
 
         if(is_null($item)){
-            return reponse() ->json([
+            return reponse()->json([
                 'error' => false,
                 'message' => 'Item with given id $id not found',
                 'item' => $item,
@@ -151,9 +149,9 @@ class ItemController extends Controller
 
         $item->delete();
 
-        return reponse()->json([
+        return response()->json([
             'error' => false,
-            'message' => "Item with given id $id deleted successfully",
-        ]);
+            'message'  => "Item record successfully deleted id # $id",
+        ], 200);
     }
 }
