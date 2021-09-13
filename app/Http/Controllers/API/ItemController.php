@@ -32,7 +32,37 @@ class ItemController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validation = Validator::make(
+
+            $request->all(),
+            [
+                'name'=>'required',
+                'quantity'=>'required',
+                'price'=>'required',
+            ]
+        );
+
+        if($validation->fails()){
+
+            return reponse() ->json([
+                'error' => true,
+                'message' => $validation->errors(),
+            ],200);
+
+        } else {
+            
+            $item = new Item;
+            $item->name = $request->input('name');
+            $item->quantity = $request->input('quantity');
+            $item->price = $request->input('price');
+            $item->save();
+
+            return reponse() ->json([
+                'error' => false,
+                'message' => 'Item added successfully',
+                'item' => $item,
+            ],200);
+        }
     }
 
     /**
