@@ -50,7 +50,7 @@ class ItemController extends Controller
             ],200);
 
         } else {
-            
+
             $item = new Item;
             $item->name = $request->input('name');
             $item->quantity = $request->input('quantity');
@@ -73,7 +73,20 @@ class ItemController extends Controller
      */
     public function show($id)
     {
-        //
+        $item = Item::find($id);
+
+        if(is_null($item)){
+            return reponse() ->json([
+                'error' => false,
+                'message' => 'Item with given id $id not found',
+                'item' => $item,
+            ],404); 
+        }
+
+        return reponse()->json([
+            'error' => false,
+            'item' => $item,
+        ]);
     }
 
     /**
