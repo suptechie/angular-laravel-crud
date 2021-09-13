@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\API\ItemController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +18,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::group(['prefix' => 'api/vi', 'namespace'=> 'API'], function(){
-    Route::apiResource('items', 'ItemController');
+Route::group(['prefix' => 'api/v1'], function(){
+    Route::apiResource('items', ItemController::class);
 });
