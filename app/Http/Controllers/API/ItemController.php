@@ -98,7 +98,37 @@ class ItemController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validation = Validator::make(
+
+            $request->all(),
+            [
+                'name'=>'required',
+                'quantity'=>'required',
+                'price'=>'required',
+            ]
+        );
+
+        if($validation->fails()){
+
+            return reponse() ->json([
+                'error' => true,
+                'message' => $validation->errors(),
+            ],200);
+
+        } else {
+
+            $item = Item::find($id);
+            $item->name = $request->input('name');
+            $item->quantity = $request->input('quantity');
+            $item->price = $request->input('price');
+            $item->save();
+
+            return reponse() ->json([
+                'error' => false,
+                'message' => 'Item updated successfully',
+                'item' => $item,
+            ],200);
+        }
     }
 
     /**
