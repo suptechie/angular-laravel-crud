@@ -18,7 +18,10 @@ class ItemController extends Controller
      */
     public function index()
     {
-        //
+        return response() ->json([
+            'error' => false,
+            'items' => Item::all(),
+        ], 200);
     }
 
     /**
