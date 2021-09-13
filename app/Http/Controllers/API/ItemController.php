@@ -139,6 +139,21 @@ class ItemController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $item = Item::find($id);
+
+        if(is_null($item)){
+            return reponse() ->json([
+                'error' => false,
+                'message' => 'Item with given id $id not found',
+                'item' => $item,
+            ],404); 
+        }
+
+        $item->delete();
+
+        return reponse()->json([
+            'error' => false,
+            'message' => "Item with given id $id deleted successfully",
+        ]);
     }
 }
